@@ -79,10 +79,10 @@ Format: `clear`
 
 ---
 
-### Setting a budget limit: `setBudget`
+### Setting a budget limit: `setbudget`
 Sets a spending limit to prevent overspending.
 
-Format: `setBudget a/AMOUNT`
+Format: `setbudget a/AMOUNT`
 * `AMOUNT` is the maximum spending limit.
 Example:
 * `setBudget a/500` (Sets a spending cap of 500)
@@ -153,11 +153,21 @@ Example:
 ---
 
 ### Prioritizing specific expenses: `priority`
-Marks an expense as a high-priority item.
+Marks an expense based on different priorities, default set to be low.
 
-Format: `priority INDEX`
+Format: `priority INDEX priority_level`
 Example:
-* `priority 1` (Marks the 1st expense as high priority)
+* `priority 1 high` (Marks the 1st expense as high priority)
+
+---
+
+### Setting alerts for higher spending: `alert`
+Marks an expense based on different priorities, default set to be low.
+
+Format: `alert`
+Example:
+![My Diagram](Screenshoots/Alert_demo.png)
+
 
 ---
 

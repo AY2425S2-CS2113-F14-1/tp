@@ -1,0 +1,28 @@
+@startuml
+
+actor User
+participant Duke
+participant Ui
+participant Storage
+participant TransactionManager
+participant Parser
+
+== Tick Transaction ==
+User -> Duke : Enter "tick" command
+activate Duke
+Duke -> Ui : readCommand()
+activate Ui
+Ui -> User : Prompt for input
+deactivate Ui
+User -> Ui : Enter transaction details
+Duke -> Parser : parser(command)
+activate Parser
+Parser -> TransactionManager : tickTransaction(id)
+activate TransactionManager
+TransactionManager -> Ui : tickTransaction(transaction)
+deactivate TransactionManager
+Ui -> User : Display ticked transaction
+deactivate Ui
+deactivate Duke
+
+@enduml

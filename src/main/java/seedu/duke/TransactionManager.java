@@ -271,24 +271,27 @@ public class TransactionManager {
 
         period = period.toLowerCase();
         switch (period) {
-            case "today":
-                System.out.println(getTransactionsOnDate(LocalDate.now()));
-            case "week":
-                System.out.println(getTransactionsThisWeek());
-            case "month":
-                System.out.println(getTransactionsThisMonth());
-            default:
-                try {
-                    LocalDate date = LocalDate.parse(period);
-                    System.out.println(getTransactionsOnDate(date));
-                } catch (Exception e) {
-                    System.out.println("Invalid period. Use 'today', 'week', 'month', or a date (yyyy-mm-dd)");
-                }
+        case "today":
+            System.out.println(getTransactionsOnDate(LocalDate.now()));
+        case "week":
+            System.out.println(getTransactionsThisWeek());
+        case "month":
+            System.out.println(getTransactionsThisMonth());
+        default:
+            try {
+                LocalDate date = LocalDate.parse(period);
+                System.out.println(getTransactionsOnDate(date));
+            } catch (Exception e) {
+                System.out.println("Invalid period. Use 'today', 'week', 'month', or a date (yyyy-mm-dd)");
+            }
         }
+    }
+
     public void editInfo(int id, String info, int type) throws Exception {
         if (checkIdEmpty(id)) {
             return;
         }
+
 
         switch (type) {
         case 0:

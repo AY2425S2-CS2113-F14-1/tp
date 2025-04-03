@@ -15,11 +15,9 @@ public class Transaction {
 
 
     // changeable fields
-    private Currency currency;
     private String description;
     private Category category;
     private Priority priority;
-    private LocalDate date;
     private ArrayList<String> tags;
     private boolean isDeleted = false;
     private int recurringPeriod; // Repeated every recurringPeriod days, one-time if 0

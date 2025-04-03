@@ -7,9 +7,11 @@ original source as well}
 
 ## Design & implementation
 
-### 1. Transactions
+### Transactions
 
 ### Transaction Basic Data Structure
+
+![Class Diagram](./images/ClassDiagram.png)
 
 **Feature Description:**  
 `Pang Zixi` implemented the `Transaction` class as the basic data structure for transactions. It includes the following
@@ -46,12 +48,18 @@ and it supports modifying and querying the transaction status (e.g., Pending, Co
 
 ---
 
-### Transaction Management Features: Mark, Add, Exit
+### Transaction Management Features: Tick, Add, Exit, List
+
+![Tick](./images/tick.png)
+![Untick](./images/untick.png)
+![add](./images/AddDiagram.png)
+![list](./images/list.png)
 
 **Feature Description:**  
 `Pang Zixi` added several functionalities to manage transactions:
 * Mark Transaction: Allows users to mark a transaction with a specific status (Completed or Pending).
 * Add Transaction: Users can add a new transaction with description, amount, category, and other attributes.
+* List Transaction: User can list all the transactions in the manager.
 * Exit Program: Exits the program and ensures any unsaved transactions are stored.
 
 ```angular2html
@@ -60,9 +68,32 @@ public void addTransaction(int id, String description, int amount, Category cate
     transactions.add(transaction);
 }
 
-public void searchTransaction(int id) {
-    transactions.stream().filter(t -> t.getId() == id).forEach(t -> System.out.println(t));
+public void tickTransaction(int id) {
+Transaction transaction = searchTransaction(id);
+if (transaction == null) {
+return;
 }
+transaction.complete();
+}
+
+public void unTickTransaction(int id) {
+Transaction transaction = searchTransaction(id);
+if (transaction == null) {
+return;
+}
+transaction.notComplete();
+}
+
+public ArrayList<Transaction> getTransactions() {
+    ArrayList<Transaction> printTransactions = new ArrayList<>();
+    for (Transaction transaction : transactions) {
+    if (!transaction.isDeleted()) {
+    printTransactions.add(transaction);
+    sortTransactions(printTransactions);
+    }
+    }
+    return printTransactions;
+    }
 ```
 
 **Design Consideration:**  
@@ -477,10 +508,33 @@ The total expenditure is calculated before `goal` commands are executed instead 
 
 ## User Stories
 
+<<<<<<< HEAD
 | Version | As a ... | I want to ...             | So that I can ...                                           |
 |---------|----------|---------------------------|-------------------------------------------------------------|
 | v1.0    | new user | see usage instructions    | refer to them when I forget how to use the application      |
 | v2.0    | user     | find a to-do item by name | locate a to-do without having to go through the entire list |
+=======
+| Version | As a ... | I want to ...                                         | So that I can ...                                     |
+|-------|----------|-------------------------------------------------------|-------------------------------------------------------|
+| v1.0  | user     | delete financial information                          | correct any upcoming changes in regards to my finances. |
+| v1.0  | user     | add financial information                             | keep track of my financial goals.                     |
+| v1.0  | user     | set a financial goal                                  | track the financial goal |
+| v1.0  | user     | search through my expenses                            | keep better track of expenses I have to pay for |
+| v1.0  | user     | label my expenditures                                 | remember why I want to spend that money |
+| v1.0  | user     | tick off my expenditures                              | remember what I have bought and what I haven’t |
+| v1.0  | user     | set budget limits                                     | limit the amount of purchases I add. |
+| v1.0  | user     | create recurring transactions                         | keep track of regular payments such as subscriptions easily.|
+| v1.0  | user     | correct financial information                         | mistaken by incorrect financial goals. |
+| v2.0  | user     | receive alerts                                        | control it when my spending is higher than usual and have upcoming payments.|
+| v2.0  | user     | prioritise specific expenses                          | see what sort of expenses I should focus on first place.|
+| v2.0  | student  | document project expenses                             | control the budget granted and to request reimbursements.|
+| v2.0  | user     | receive the reminders for upcoming recurring payments | don’t miss a payment deadline.|
+| v2.0  | student  | synchronize the expenditures with balances            | can manage the savings better and see any differences.| 
+| v2.0  | user     | view a summary of my expenses for a given time frame  |  can get quick information about my finances when I need it.|
+| v2.0  | student  | see 5-10 different types of currencies                |  can convert back to my home currency when I need to, like USD, SGD, EUR and CNY.|
+
+
+>>>>>>> origin/master
 
 ## Non-Functional Requirements
 
