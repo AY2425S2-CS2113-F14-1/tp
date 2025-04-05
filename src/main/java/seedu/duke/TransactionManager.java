@@ -132,13 +132,16 @@ public class TransactionManager {
         }
     }
 
-    public ArrayList<Transaction> searchTransactionList(boolean isIndex, String searchTerm) {
+    public ArrayList<Transaction> searchTransactionList(boolean isIndex, String searchTerm) throws Exception {
         try {
             ArrayList<Transaction> printTransactions = new ArrayList<>();
             if (isIndex) {
-                Transaction transaction = searchTransaction(Integer.parseInt(searchTerm));
-                if (transaction != null) {
-                    printTransactions.add(transaction);
+                int id = Integer.parseInt(searchTerm);
+                for (Transaction transaction : transactions) {
+                    if (transaction.getId() == id && !transaction.isDeleted()) {
+                        printTransactions.add(transaction);
+                        break;
+                    }
                 }
             } else {
                 for (Transaction transaction : transactions) {
@@ -148,9 +151,10 @@ public class TransactionManager {
                 }
             }
             return printTransactions;
+        } catch (NumberFormatException ne) {
+            throw new InvalidCommand("That wasn't an id... Try again!");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return null;
+            throw new InvalidCommand("An unexpected error occurred, try again!");
         }
     }
 
