@@ -102,7 +102,7 @@ public class FinancialGoal {
 
     // Saving methods
 
-    public void addToSavings(int amount) {
+    public void addToSavings(double amount) {
         isBlank = false;
         deposits += amount;
         checkGoalStatus();
@@ -171,4 +171,12 @@ public class FinancialGoal {
                 + getBalance() + " / $" + targetAmount + " saved \n"
                 + (isAchieved ? "Goal Reached!" : "Keep saving!");
     }
+    public void forceSetDeposits(double deposits) {
+        this.deposits = deposits;
+    }
+
+    public void forceSetAchieved(boolean isAchieved) {
+        this.isAchieved = isAchieved;
+    }
+
 }

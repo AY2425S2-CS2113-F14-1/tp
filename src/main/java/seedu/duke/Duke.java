@@ -12,16 +12,16 @@ public class Duke {
 
     public Duke() {
         ui = new Ui();
-        goal = new FinancialGoal();
         storage = new Storage();
-        // load data
         transactions = new TransactionManager();
+        goal = storage.loadGoal();
 
         assert ui != null : "UI should be initialized";
         assert goal != null : "FinancialGoal should be initialized";
         assert storage != null : "Storage should be initialized";
         assert transactions != null : "TransactionManager should be initialized";
     }
+
 
     public void run() {
         ui.printWelcomeMessage();
