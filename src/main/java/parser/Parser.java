@@ -1,6 +1,12 @@
 package parser;
 
-import command.*;
+import command.AlertCommand;
+import command.DeleteCommand;
+import command.NotifyCommand;
+import command.SummaryCommand;
+import command.SetBudgetCommand;
+import command.SetPriorityCommand;
+
 import enums.Currency;
 import exceptions.NullException;
 import exceptions.InvalidCommand;
@@ -19,7 +25,36 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static constant.Constant.*;
+import static constant.Constant.COMMAND_ADD;
+import static constant.Constant.COMMAND_DELETE;
+import static constant.Constant.COMMAND_EDIT;
+import static constant.Constant.COMMAND_LIST;
+import static constant.Constant.COMMAND_ALERT;
+import static constant.Constant.COMMAND_EXIT;
+import static constant.Constant.COMMAND_CLEAR;
+import static constant.Constant.COMMAND_CURRENCY;
+import static constant.Constant.COMMAND_GOAL;
+import static constant.Constant.COMMAND_HELP;
+import static constant.Constant.COMMAND_NOTIFY;
+import static constant.Constant.COMMAND_TICK;
+import static constant.Constant.COMMAND_UNTICK;
+import static constant.Constant.COMMAND_SEARCH;
+import static constant.Constant.COMMAND_SET_BUDGET;
+import static constant.Constant.COMMAND_SET_PRIORITY;
+import static constant.Constant.COMMAND_SUMMARY;
+import static constant.Constant.COMMAND_RECUR;
+import static constant.Constant.FIND_DATE;
+import static constant.Constant.IDENTIFIER_AMOUNT;
+import static constant.Constant.INVALID_INPUT;
+import static constant.Constant.GOAL_DESC;
+import static constant.Constant.GOAL_NEW;
+import static constant.Constant.GOAL_STATUS;
+import static constant.Constant.GOAL_TARGET;
+import static constant.Constant.GOAL_TITLE;
+import static constant.Constant.EDIT_AM;
+import static constant.Constant.EDIT_CAT;
+import static constant.Constant.EDIT_CURR;
+import static constant.Constant.EDIT_DESC;
 
 public class Parser {
     /**
