@@ -94,7 +94,7 @@ public class TransactionManager {
         double totalAmount = 0;
         for (Transaction transaction : transactions) {
             if (!transaction.isDeleted()) {
-                totalAmount += transaction.getAmount();
+                totalAmount += transaction.getAmount() * 1 / transaction.getCurrency().getRate();
             }
         }
         return totalAmount;
@@ -286,7 +286,7 @@ public class TransactionManager {
         }
     }
 
-    public void setRecur(int id, int period) throws Exception{
+    public void setRecur(int id, int period) throws Exception {
         Transaction t = searchTransaction(id);
         if (t != null) {
             t.setRecurringPeriod(period);

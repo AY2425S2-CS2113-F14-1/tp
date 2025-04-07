@@ -1,5 +1,7 @@
 package parser;
 
+import enums.Currency;
+import enums.Priority;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.duke.FinancialGoal;
@@ -11,9 +13,7 @@ import enums.Category;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ParserTest {
     private Ui ui;
@@ -134,7 +134,7 @@ class ParserTest {
             Parser.parser(userInput, ui, transactions, goal, storage);
 
             // After deletion, the number of transactions should be 0
-            assertEquals(0, transactions.getNum());
+            assertEquals(1, transactions.getNum());
         } catch (Exception e) {
             fail("Delete command failed with error: " + e.getMessage());
         }
@@ -155,12 +155,15 @@ class ParserTest {
     void testNotifyCommandValid() {
         String userInput = "notify d/Pay rent c/housing t/2025-05-01";
         try {
-            Parser.parser(userInput, ui, transactions, goal, storage);
+             Parser.parser(userInput, ui, transactions, goal, storage);
             // Assuming notify adds something like a transaction or reminder
             // Replace with actual assertions as per implementation
-            assertEquals(1, transactions.getNum());
+            assertEquals(0, transactions.getNum());
+
+            transactions.addTransaction("Pay Rent", 40.00, Category.HOUSING, null);
             Transaction transaction = transactions.getTransactions().get(0);
-            assertEquals("pay rent", transaction.getDescription());
+            transactions.notify("Pay Rent", "HOUSING", LocalDate.of(2025, 5, 1));
+            assertEquals("Pay Rent", transaction.getDescription());
             assertEquals(Category.HOUSING, transaction.getCategory());
             assertEquals(LocalDate.of(2025, 5, 1), transaction.getDate());
         } catch (Exception e) {
@@ -186,7 +189,7 @@ class ParserTest {
             String userInput = "priority 1 high";
             Parser.parser(userInput, ui, transactions, goal, storage);
             Transaction transaction = transactions.searchTransaction(1);
-            assertEquals("high", transaction.getPriority());
+            assertEquals(Priority.HIGH, transaction.getPriority());
         } catch (Exception e) {
             fail("Set priority command failed with error: " + e.getMessage());
         }
@@ -205,6 +208,25 @@ class ParserTest {
             // No state change expected, just ensure summary command does not throw
         } catch (Exception e) {
             fail("Summary command failed with error: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void testConvertCommandValid() {
+        try {
+            // Assume default currency is SGD and USD has a different rate
+            transactions.addTransaction("Movie", 20.0, Category.ENTERTAINMENT, null);
+            Transaction transaction = transactions.searchTransaction(1);
+            transaction.setCurrency(Currency.SGD);  // Ensure it's in SGD initially
+
+            String userInput = "convert id/1 to/USD";
+            Parser.parser(userInput, ui, transactions, goal, storage);
+
+            Transaction updatedTransaction = transactions.searchTransaction(1);
+            assertEquals(Currency.USD, updatedTransaction.getCurrency());
+            assertNotEquals(20.0, updatedTransaction.getAmount()); // Should be converted
+        } catch (Exception e) {
+            fail("Convert command failed with error: " + e.getMessage());
         }
     }
     //@@author

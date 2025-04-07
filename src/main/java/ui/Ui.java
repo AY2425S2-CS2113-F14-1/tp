@@ -98,6 +98,13 @@ public class Ui {
 
 
     //@@author Lukapeng77
+
+    /**
+     * Prints a message indicating a transaction has been deleted, along with the updated transaction count.
+     *
+     * @param transaction The transaction that was deleted.
+     * @param count       The number of transactions remaining after deletion.
+     */
     public static void printDeleteTask(Transaction transaction, int count) {
         printLine();
         System.out.println("Noted. I've removed this transaction:");
@@ -106,18 +113,26 @@ public class Ui {
         printLine();
     }
 
-    public void printBudgetLimit(TransactionManager transaction) {
+    /**
+     * Prints the result of a currency conversion from one currency to another.
+     *
+     * @param originalAmount  The original amount before conversion.
+     * @param from            The original currency.
+     * @param convertedAmount The amount after conversion.
+     * @param to              The target currency.
+     */
+    public void printConversion(double originalAmount, Currency from, double convertedAmount, Currency to) {
         printLine();
-        if (transaction.getTransactions().isEmpty()) {
-            System.out.println("Please add a transaction first before you set the budget!");
-        } else {
-            double currentBudgetLimit = transaction.getBudgetLimit();
-            transaction.checkBudgetLimit(currentBudgetLimit);
-        }
+        System.out.printf("Converted %.2f %s to %.2f %s%n",
+                originalAmount, from.name(), convertedAmount, to.name());
         printLine();
     }
+
     //@@author
 
+    /**
+     * Prints a confirmation message indicating that all transactions have been cleared.
+     */
     public void printClear() {
         printLine();
         System.out.println("All transactions have been cleared!");
@@ -125,6 +140,13 @@ public class Ui {
     }
 
     //@@author Lukapeng77
+
+    /**
+     * Prints a list of upcoming transactions that match the given description and have a due date.
+     *
+     * @param upcomingTransactions A list of upcoming transactions.
+     * @param description          The description to filter transactions by.
+     */
     public void listNotification(ArrayList<Transaction> upcomingTransactions, String description) {
         printLine();
         if (upcomingTransactions.isEmpty()) {
@@ -142,6 +164,11 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Prints a list of all upcoming transactions with due dates.
+     *
+     * @param upcomingTransactions A list of upcoming transactions.
+     */
     public void listNotifications(ArrayList<Transaction> upcomingTransactions) {
         if (upcomingTransactions.isEmpty()) {
             System.out.println("There are no upcoming transactions for now.");
@@ -164,6 +191,12 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints the priority setting for a specified transaction.
+     *
+     * @param transactions The list of transactions.
+     * @param index        The index of the transaction whose priority is being set.
+     */
     public void printPriority(ArrayList<Transaction> transactions, int index) {
         printLine();
         if (transactions.isEmpty()) {
@@ -175,6 +208,11 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Lists all transactions that have a high priority setting.
+     *
+     * @param upcomingTransactions A list of upcoming transactions to check for high priority.
+     */
     public void listPriorities(ArrayList<Transaction> upcomingTransactions) {
         String defaultPriority = "HIGH";
         boolean hasHighPriority = false;
@@ -194,6 +232,14 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints a summary of transactions between a given date range, including total expenses.
+     *
+     * @param transactions A list of transactions to summarize.
+     * @param total        The total sum of all transaction amounts.
+     * @param start        The start date of the summary period.
+     * @param end          The end date of the summary period.
+     */
     public void printSummary(List<Transaction> transactions, double total, LocalDate start, LocalDate end) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         System.out.println("Expense Summary from " + start.format(formatter) + " to " + end.format(formatter));

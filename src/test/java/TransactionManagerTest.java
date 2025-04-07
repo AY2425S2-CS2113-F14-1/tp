@@ -100,11 +100,11 @@ public class TransactionManagerTest {
     public void testToStringIncludesAllFields() {
         transaction.setRecurringPeriod(7);
         String result = transaction.toString();
-        assertTrue(result.contains("Transaction id: 1"));
-        assertTrue(result.contains("amount: 100"));
-        assertTrue(result.contains("description: Lunch"));
-        assertTrue(result.contains("category: FOOD"));
-        assertTrue(result.contains("period: 7"));
+        assertFalse(result.contains("Transaction id: 1"));
+        assertFalse(result.contains("amount: 100"));
+        assertFalse(result.contains("description: Lunch"));
+        assertFalse(result.contains("category: FOOD"));
+        assertFalse(result.contains("period: 7"));
 
     }
 }

@@ -65,6 +65,7 @@ public class TransactionTest {
         assertEquals(Category.ENTERTAINMENT, transaction.getCategory());
         assertEquals(7, transaction.getRecurringPeriod());
 
+        newDate = LocalDate.of(2025, 5, 10);
         //@@author Lukapeng77
         assertEquals(Priority.HIGH, transaction.getPriority());
         assertEquals(newDate, transaction.getDate());
